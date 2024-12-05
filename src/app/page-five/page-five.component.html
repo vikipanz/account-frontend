@@ -1,0 +1,135 @@
+<div class="container">
+    <form [formGroup]="formFive" class="form-one-class">
+        <h2>User Five Form</h2>
+        <div class="form-inner">
+                <mat-form-field appearance="outline">
+                  <mat-label>L.R. No</mat-label>
+                  <input matInput type="text" formControlName="lrNum" [matAutocomplete]="auto" (input)="onLrInput()">
+                  <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onLrNumSelected($event)">
+                    <mat-option *ngFor="let suggestion of filteredSuggestions" [value]="suggestion.lrNum">
+                      {{ suggestion.lrNum }}
+                  </mat-option>
+                  </mat-autocomplete>
+                </mat-form-field>
+                
+                <mat-form-field appearance="outline">
+                    <mat-label>Loading Date</mat-label>
+                    <input matInput [matDatepicker]="loadDate" readonly formControlName="loadDate"/>
+                    <mat-datepicker-toggle matSuffix [for]="loadDate"></mat-datepicker-toggle>
+                    <mat-datepicker #loadDate></mat-datepicker>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline">
+                    <mat-label>Vehical No</mat-label>
+                    <input matInput type="text" formControlName="vehicalNo">
+                </mat-form-field>
+
+                <mat-form-field appearance="outline">
+                    <mat-label>Diesel Amount</mat-label>
+                    <input matInput type="text" formControlName="dieselAmount">
+                </mat-form-field>
+        
+                <mat-form-field appearance="outline">
+                    <mat-label>Diesel Ltr</mat-label>
+                    <input matInput type="text" formControlName="dieselLtr">
+                </mat-form-field>
+        
+                <mat-form-field appearance="outline">
+                    <mat-label>Remark</mat-label>
+                    <input matInput type="text" formControlName="remark">
+                </mat-form-field>
+
+                <mat-form-field appearance="outline">
+                    <mat-label>DA / Border / Kalasi / Other</mat-label>
+                    <input matInput type="text" formControlName="others">
+                </mat-form-field>
+
+                <mat-form-field appearance="outline">
+                    <mat-label>Service / Repair Bill</mat-label>
+                    <input matInput type="text" formControlName="serviceBill">
+                </mat-form-field>
+               
+                <mat-form-field appearance="outline">
+                    <mat-label>Fastag Amount</mat-label>
+                    <input matInput type="text" formControlName="fastTag">
+                </mat-form-field>
+
+                <mat-form-field appearance="outline">
+                    <mat-label>Remark</mat-label>
+                    <input matInput type="text" formControlName="secondRemark">
+                </mat-form-field>
+        
+        <div>
+         <button class="primary-button" mat-raised-button type="submit" [disabled]="!formFive.valid" (click)="getValue()">Submit</button>
+        </div>
+
+        </div>
+
+    </form>
+
+    <table mat-table [dataSource]="tableData" class="mat-elevation-z8">
+   
+        <ng-container matColumnDef="lrNum">
+          <th mat-header-cell *matHeaderCellDef> LR No. </th>
+          <td mat-cell *matCellDef="let element"> {{element.lrNum}} </td>
+        </ng-container>
+      
+        <ng-container matColumnDef="loadDate">
+          <th mat-header-cell *matHeaderCellDef> Load Date </th>
+          <td mat-cell *matCellDef="let element"> {{element.loadDate | date:'dd-MM-YYYY'}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="vehicalNo">
+            <th mat-header-cell *matHeaderCellDef> Vehical No </th>
+            <td mat-cell *matCellDef="let element"> {{element.vehicalNo}} </td>
+          </ng-container>
+
+        <ng-container matColumnDef="dieselAmount">
+            <th mat-header-cell *matHeaderCellDef> Diesel Amount </th>
+            <td mat-cell *matCellDef="let element"> {{element.dieselAmount}} </td>
+        </ng-container>
+    
+        <ng-container matColumnDef="dieselLtr">
+            <th mat-header-cell *matHeaderCellDef> Diesel Ltr. </th>
+            <td mat-cell *matCellDef="let element"> {{element.dieselLtr}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="remark">
+            <th mat-header-cell *matHeaderCellDef> Remark </th>
+            <td mat-cell *matCellDef="let element"> {{element.remark}} </td>
+          </ng-container>
+
+
+          <ng-container matColumnDef="others">
+            <th mat-header-cell *matHeaderCellDef> Other </th>
+            <td mat-cell *matCellDef="let element"> {{element.others}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="serviceBill">
+            <th mat-header-cell *matHeaderCellDef> Service Bill</th>
+            <td mat-cell *matCellDef="let element"> {{element.serviceBill}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="fastTag">
+            <th mat-header-cell *matHeaderCellDef> Fast Tag </th>
+            <td mat-cell *matCellDef="let element"> {{element.fastTag}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="secondRemark">
+            <th mat-header-cell *matHeaderCellDef> Second Remark </th>
+            <td mat-cell *matCellDef="let element"> {{element.secondRemark}} </td>
+          </ng-container>
+
+        <ng-container matColumnDef="delete">
+            <th mat-header-cell *matHeaderCellDef> Actions </th>
+            <td mat-cell *matCellDef="let element">
+                <button mat-icon-button (click)="deleteRow(element)">
+                    <mat-icon>delete</mat-icon>
+                </button>
+            </td>
+          </ng-container>
+      
+        <tr mat-header-row *matHeaderRowDef="columns"></tr>
+        <tr mat-row *matRowDef="let row; columns: columns;"></tr>
+    </table>
+</div>   

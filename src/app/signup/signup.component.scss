@@ -1,0 +1,12 @@
+.export-button{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 60vh;
+}
+
+button{
+    background-color: rgb(77, 144, 144);
+    color: white;
+}
