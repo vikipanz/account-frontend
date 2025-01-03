@@ -13,7 +13,7 @@ export class PageTwoComponent implements OnInit {
 
   public formTwo!: FormGroup;
   public tableData : any;
-  columns = ['lrNum','lrDate','party',  'vehicalNo',  'from',  'to',  'materialName',  'loadnetWt',  'unloadnetWt',  'rate', 'delete'];
+  columns = ['lrNum','lrDate', 'vehicalNo', 'lrCheckedDate', 'qtyUnloaded' , 'shortage' , 'allowance' , 'allowanceType' , 'shortageToBeDeducted' , 'delete'];
   filteredSuggestions: any[] = [];
   selectedValuePresent = false;
   selectedSuggestion: any[] = [];
@@ -25,14 +25,13 @@ export class PageTwoComponent implements OnInit {
     this.formTwo = this.formBuilder.group({
       lrNum: new FormControl('',[Validators.required]),
       lrDate: new FormControl('',[Validators.required]),
-      party: new FormControl('',[Validators.required]),
       vehicalNo: new FormControl('',[Validators.required]),
-      from: new FormControl('',[Validators.required]),
-      to: new FormControl('',[Validators.required]),
-      materialName: new FormControl('',[Validators.required]),
-      loadnetWt: new FormControl('',[Validators.required]),
-      unloadnetWt: new FormControl('',[Validators.required]),
-      rate: new FormControl('', Validators.required)
+      lrCheckedDate: new FormControl('',[Validators.required]),
+      qtyUnloaded: new FormControl('',[Validators.required]),
+      shortage: new FormControl('',[Validators.required]),
+      allowance: new FormControl('',[Validators.required]),
+      allowanceType: new FormControl('',[Validators.required]),
+      shortageToBeDeducted:new FormControl('',[Validators.required]),
     });
     this.formTwo.get('lrNum')?.valueChanges.pipe(
       startWith(''),
@@ -56,11 +55,16 @@ export class PageTwoComponent implements OnInit {
     let formValue = this.formTwo.getRawValue();
     if(this.selectedValuePresent){
       this.apiSrv.putFormOneData(this.formTwo.get('lrNum')?.value, formValue).subscribe((resp)=>{
-        this.apiSrv.getFormOneData().subscribe((resp)=>this.tableData = resp) 
+        this.apiSrv.getFormOneData().subscribe((resp)=>{
+          if(resp){
+            this.tableData = resp;
+          }
+        }) 
       },
       error=>console.log(error)
     );
     this.formTwo.reset();
+    this.selectedSuggestion=[];
     }
     else{
       this.apiSrv.postFormOneData(formValue).subscribe(resp=>{
@@ -68,6 +72,7 @@ export class PageTwoComponent implements OnInit {
       },
       error=>console.log(error.message));
       this.formTwo.reset();
+      this.selectedSuggestion=[];
     }
   }
 
@@ -77,14 +82,13 @@ export class PageTwoComponent implements OnInit {
     if (this.selectedSuggestion) {
       this.formTwo.patchValue({
         lrDate: this.selectedSuggestion[0]?.lrDate,
-        party: this.selectedSuggestion[0]?.party,
         vehicalNo: this.selectedSuggestion[0]?.vehicalNo,
-        from: this.selectedSuggestion[0]?.from,
-        to: this.selectedSuggestion[0]?.to,
-        materialName: this.selectedSuggestion[0]?.materialName,
-        loadnetWt: this.selectedSuggestion[0]?.loadnetWt,
-        unloadnetWt: this.selectedSuggestion[0]?.unloadnetWt,
-        rate: this.selectedSuggestion[0]?.rate
+        lrCheckedDate: this.selectedSuggestion[0]?.lrCheckedDate,
+        qtyUnloaded: this.selectedSuggestion[0]?.qtyUnloaded,
+        shortage: this.selectedSuggestion[0]?.shortage,
+        allowance: this.selectedSuggestion[0]?.allowance,
+        allowanceType: this.selectedSuggestion[0]?.allowanceType,
+        shortageToBeDeducted:this.selectedSuggestion[0]?.shortageToBeDeducted,
       });
       this.selectedValuePresent = true;
     }

@@ -21,17 +21,43 @@
                     <mat-datepicker-toggle matSuffix [for]="lrDate"></mat-datepicker-toggle>
                     <mat-datepicker #lrDate></mat-datepicker>
                 </mat-form-field>
-    
+
                 <mat-form-field appearance="outline">
-                    <mat-label>Party</mat-label>
-                    <input matInput type="text" formControlName="party">
+                    <mat-label>Owner</mat-label>
+                    <mat-select formControlName="ownBy">
+                        <mat-option *ngFor="let car of dropDown" [value]="car.value">{{car.viewValue}}</mat-option>
+                      </mat-select>
                 </mat-form-field>
-    
+
                 <mat-form-field appearance="outline">
                     <mat-label>Vehical No</mat-label>
                     <input matInput type="text" formControlName="vehicalNo">
                 </mat-form-field>
+
+                <mat-form-field appearance="outline">
+                    <mat-label>Loading Date</mat-label>
+                    <input matInput [matDatepicker]="loadDate" readonly formControlName="loadDate"/>
+                    <mat-datepicker-toggle matSuffix [for]="loadDate"></mat-datepicker-toggle>
+                    <mat-datepicker #loadDate></mat-datepicker>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline">
+                    <mat-label>Consignor</mat-label>
+                    <input matInput type="text" formControlName="consignor">
+                </mat-form-field>
+
+                <mat-form-field appearance="outline">
+                    <mat-label>Consignee</mat-label>
+                    <input matInput type="text" formControlName="consignee">
+                </mat-form-field>
     
+                
+                <mat-form-field appearance="outline">
+                    <mat-label>A/C</mat-label>
+                    <input matInput type="text" formControlName="account">
+                </mat-form-field>
+
+                
                 <mat-form-field appearance="outline">
                     <mat-label>From</mat-label>
                     <input matInput type="text" formControlName="from">
@@ -42,17 +68,29 @@
                     <input matInput type="text" formControlName="to">
                 </mat-form-field>
 
+                
                 <mat-form-field appearance="outline">
-                    <mat-label>Owned By</mat-label>
-                    <mat-select formControlName="ownBy">
-                        <mat-option *ngFor="let car of dropDown" [value]="car.value">{{car.viewValue}}</mat-option>
-                      </mat-select>
+                    <mat-label>Product</mat-label>
+                    <input matInput type="text" formControlName="product">
                 </mat-form-field>
+    
+                <mat-form-field appearance="outline">
+                    <mat-label>QTY Loaded</mat-label>
+                    <input matInput type="text" formControlName="qtyLoad">
+                </mat-form-field>
+
             <div>
                 <button class="primary-button" mat-raised-button type="submit" [disabled]="!formOne.valid" (click)="postValue()">Submit</button>
             </div>
             </div>
         </form>
+
+        <div class="export-button">
+            <button class="excel-button" mat-raised-button (click)="exportToCSV()">
+                Export to Excel
+            </button>
+         </div>
+
         <table mat-table [dataSource]="selectedSuggestion.length > 0 ? selectedSuggestion : tableData" class="mat-elevation-z8">
        
             <ng-container matColumnDef="lrNum">
@@ -65,16 +103,46 @@
               <td mat-cell *matCellDef="let element"> {{element.lrDate | date:'dd-MM-YYYY'}} </td>
             </ng-container>
     
-            <ng-container matColumnDef="party">
-                <th mat-header-cell *matHeaderCellDef> Party </th>
-                <td mat-cell *matCellDef="let element"> {{element.party}} </td>
+            <ng-container matColumnDef="ownBy">
+                <th mat-header-cell *matHeaderCellDef> Own By </th>
+                <td mat-cell *matCellDef="let element"> {{element.ownBy}} </td>
               </ng-container>
     
             <ng-container matColumnDef="vehicalNo">
                 <th mat-header-cell *matHeaderCellDef> Vehical No </th>
                 <td mat-cell *matCellDef="let element"> {{element.vehicalNo}} </td>
             </ng-container>
-        
+
+            <ng-container matColumnDef="loadDate">
+                <th mat-header-cell *matHeaderCellDef> Load Date </th>
+                <td mat-cell *matCellDef="let element"> {{element.loadDate | date:'dd-MM-YYYY'}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="consignor">
+                <th mat-header-cell *matHeaderCellDef> Consignor </th>
+                <td mat-cell *matCellDef="let element"> {{element.consignor}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="consignee">
+                <th mat-header-cell *matHeaderCellDef> Consignee </th>
+                <td mat-cell *matCellDef="let element"> {{element.consignee}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="account">
+                <th mat-header-cell *matHeaderCellDef> Account </th>
+                <td mat-cell *matCellDef="let element"> {{element.account}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="product">
+                <th mat-header-cell *matHeaderCellDef> Product </th>
+                <td mat-cell *matCellDef="let element"> {{element.product}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="qtyLoad">
+                <th mat-header-cell *matHeaderCellDef> QTY Load </th>
+                <td mat-cell *matCellDef="let element"> {{element.qtyLoad}} </td>
+            </ng-container>
+
             <ng-container matColumnDef="from">
                 <th mat-header-cell *matHeaderCellDef> From </th>
                 <td mat-cell *matCellDef="let element"> {{element.from}} </td>

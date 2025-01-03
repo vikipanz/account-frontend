@@ -22,45 +22,41 @@
                 </mat-form-field>
     
                 <mat-form-field appearance="outline">
-                    <mat-label>Party</mat-label>
-                    <input matInput type="text" formControlName="party">
-                </mat-form-field>
-    
-                <mat-form-field appearance="outline">
                     <mat-label>Vehical No</mat-label>
                     <input matInput type="text" formControlName="vehicalNo">
                 </mat-form-field>
 
                 <mat-form-field appearance="outline">
-                    <mat-label>From</mat-label>
-                    <input matInput type="text" formControlName="from">
+                    <mat-label>L.R Checked Date</mat-label>
+                    <input matInput [matDatepicker]="lrCheckedDate" readonly formControlName="lrCheckedDate"/>
+                    <mat-datepicker-toggle matSuffix [for]="lrCheckedDate"></mat-datepicker-toggle>
+                    <mat-datepicker #lrCheckedDate></mat-datepicker>
                 </mat-form-field>
 
                 <mat-form-field appearance="outline">
-                    <mat-label>To</mat-label>
-                    <input matInput type="text" formControlName="to">
+                    <mat-label>Qty Unloaded</mat-label>
+                    <input matInput type="text" formControlName="qtyUnloaded">
                 </mat-form-field>
 
                 <mat-form-field appearance="outline">
-                    <mat-label>Material Name</mat-label>
-                    <input matInput type="text" formControlName="materialName">
+                    <mat-label>Shortage</mat-label>
+                    <input matInput type="text" formControlName="shortage">
                 </mat-form-field>
 
                 <mat-form-field appearance="outline">
-                    <mat-label>Load Net Wt</mat-label>
-                    <input matInput type="text" formControlName="loadnetWt">
+                    <mat-label>Allowance %</mat-label>
+                    <input matInput type="text" formControlName="allowance">
                 </mat-form-field>
 
                 <mat-form-field appearance="outline">
-                    <mat-label>Unload Net Wt</mat-label>
-                    <input matInput type="text" formControlName="unloadnetWt">
+                    <mat-label>Allowance Type</mat-label>
+                    <input matInput type="text" formControlName="allowanceType">
                 </mat-form-field>
 
                 <mat-form-field appearance="outline">
-                    <mat-label>Rate</mat-label>
-                    <input matInput type="text" formControlName="rate">
+                    <mat-label>Shortage To be Deducted</mat-label>
+                    <input matInput type="text" formControlName="shortageToBeDeducted">
                 </mat-form-field>
-
         <div>
             <button class="primary-button" mat-raised-button type="submit" [disabled]="!formTwo.valid" (click)="postFormTwoData()">Submit</button>
         </div>
@@ -81,45 +77,39 @@
           <td mat-cell *matCellDef="let element"> {{element.lrDate | date:'dd-MM-YYYY'}} </td>
         </ng-container>
 
-        <ng-container matColumnDef="party">
-            <th mat-header-cell *matHeaderCellDef> Party </th>
-            <td mat-cell *matCellDef="let element"> {{element.party}} </td>
-          </ng-container>
-
         <ng-container matColumnDef="vehicalNo">
             <th mat-header-cell *matHeaderCellDef> Vehical No </th>
             <td mat-cell *matCellDef="let element"> {{element.vehicalNo}} </td>
         </ng-container>
+
+        <ng-container matColumnDef="lrCheckedDate">
+          <th mat-header-cell *matHeaderCellDef> LR Checked Date </th>
+          <td mat-cell *matCellDef="let element"> {{element.lrCheckedDate | date:'dd-MM-YYYY'}} </td>
+        </ng-container>
     
-        <ng-container matColumnDef="from">
-            <th mat-header-cell *matHeaderCellDef> From </th>
-            <td mat-cell *matCellDef="let element"> {{element.from}} </td>
+        <ng-container matColumnDef="qtyUnloaded">
+            <th mat-header-cell *matHeaderCellDef> QTY Unloaded </th>
+            <td mat-cell *matCellDef="let element"> {{element.qtyUnloaded}} </td>
           </ng-container>
 
-          <ng-container matColumnDef="to">
-            <th mat-header-cell *matHeaderCellDef> To </th>
-            <td mat-cell *matCellDef="let element"> {{element.to}} </td>
+          <ng-container matColumnDef="shortage">
+            <th mat-header-cell *matHeaderCellDef> Shortage </th>
+            <td mat-cell *matCellDef="let element"> {{element.shortage}} </td>
           </ng-container>
 
-
-          <ng-container matColumnDef="materialName">
-            <th mat-header-cell *matHeaderCellDef> Material Name </th>
-            <td mat-cell *matCellDef="let element"> {{element.materialName}} </td>
+          <ng-container matColumnDef="allowance">
+            <th mat-header-cell *matHeaderCellDef> Allowance </th>
+            <td mat-cell *matCellDef="let element"> {{element.allowance}} </td>
           </ng-container>
 
-          <ng-container matColumnDef="loadnetWt">
-            <th mat-header-cell *matHeaderCellDef> load Net Wt </th>
-            <td mat-cell *matCellDef="let element"> {{element.loadnetWt}} </td>
+          <ng-container matColumnDef="allowanceType">
+            <th mat-header-cell *matHeaderCellDef> Allowance Type </th>
+            <td mat-cell *matCellDef="let element"> {{element.allowanceType}} </td>
           </ng-container>
 
-          <ng-container matColumnDef="unloadnetWt">
-            <th mat-header-cell *matHeaderCellDef> Unload Net Wt </th>
-            <td mat-cell *matCellDef="let element"> {{element.unloadnetWt}} </td>
-          </ng-container>
-
-          <ng-container matColumnDef="rate">
-            <th mat-header-cell *matHeaderCellDef> Rate </th>
-            <td mat-cell *matCellDef="let element"> {{element.rate}} </td>
+          <ng-container matColumnDef="shortageToBeDeducted">
+            <th mat-header-cell *matHeaderCellDef> Shortage To Be Deducted </th>
+            <td mat-cell *matCellDef="let element"> {{element.shortageToBeDeducted}} </td>
           </ng-container>
 
         <ng-container matColumnDef="delete">

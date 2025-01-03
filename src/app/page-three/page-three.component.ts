@@ -13,12 +13,11 @@ export class PageThreeComponent implements OnInit {
   public formThree!: FormGroup;
   columns = [
     'lrNum',
-    'lrCheckedDate',
-    'reportingDate',
-    'unloadDate',
-    'unloadNetWt',
-    'shortage',
-    'shortagePercent',
+    'lrDate',
+    'vehicalNo',
+    'freight',
+    'invoiceNumber',
+    'invoiceAmount',
     'delete'
   ]
   tableData: any;
@@ -32,12 +31,11 @@ export class PageThreeComponent implements OnInit {
     this.getFormThreeValues();
     this.formThree = this.formBuilder.group({
       lrNum: new FormControl('',[Validators.required]),
-      lrCheckedDate: new FormControl('',[Validators.required]),
-      reportingDate: new FormControl('',[Validators.required]),
-      unloadDate: new FormControl('',[Validators.required]),
-      unloadnetWt: new FormControl('',[Validators.required]),
-      shortage: new FormControl('',[Validators.required]),
-      shortagePercent: new FormControl('',[Validators.required])
+      lrDate: new FormControl('',[Validators.required]),
+      vehicalNo: new FormControl('',[Validators.required]),
+      freight: new FormControl('',[Validators.required]),
+      invoiceNumber: new FormControl('',[Validators.required]),
+      invoiceAmount: new FormControl('',[Validators.required])
     });
     this.formThree.get('lrNum')?.valueChanges.pipe(
       startWith(''),
@@ -81,12 +79,11 @@ export class PageThreeComponent implements OnInit {
     this.selectedSuggestion = this.tableData.filter((suggestion: any) => suggestion.lrNum === selectedLrNum);
     if (this.selectedSuggestion) {
       this.formThree.patchValue({
-        lrCheckedDate:this.selectedSuggestion[0]?.lrCheckedDate,
-        reportingDate:this.selectedSuggestion[0]?.reportingDate,
-        unloadDate:this.selectedSuggestion[0]?.unloadDate,
-        unloadnetWt:this.selectedSuggestion[0]?.unloadnetWt,
-        shortage: this.selectedSuggestion[0]?.shortage,
-        shortagePercent:this.selectedSuggestion[0]?.shortagePercent
+        lrDate: this.selectedSuggestion[0]?.lrDate,
+        vehicalNo: this.selectedSuggestion[0]?.vehicalNo,
+        freight: this.selectedSuggestion[0]?.freight,
+        invoiceNumber: this.selectedSuggestion[0]?.invoiceNumber,
+        invoiceAmount: this.selectedSuggestion[0]?.invoiceAmount
       });
       this.selectedValuePresent = true;
     }

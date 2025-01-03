@@ -15,50 +15,37 @@
                 </mat-form-field>
 
                 <mat-form-field appearance="outline">
+                  <mat-label>L.R Date</mat-label>
+                  <input matInput [matDatepicker]="lrDate" readonly formControlName="lrDate"/>
+                  <mat-datepicker-toggle matSuffix [for]="lrDate"></mat-datepicker-toggle>
+                  <mat-datepicker #lrDate></mat-datepicker>
+                </mat-form-field>
+
+
+                <mat-form-field appearance="outline">
                     <mat-label>Vehical No</mat-label>
                     <input matInput type="text" formControlName="vehicalNo">
                 </mat-form-field>
 
                 <mat-form-field appearance="outline">
-                    <mat-label>Transport Name</mat-label>
-                    <input matInput type="text" formControlName="transportName">
+                    <mat-label>Subcontractor Name</mat-label>
+                    <input matInput type="text" formControlName="subcontratorName">
                 </mat-form-field>
 
                 <mat-form-field appearance="outline">
-                    <mat-label>Advance Amount</mat-label>
-                    <input matInput type="text" formControlName="advanceAmount">
+                    <mat-label>Subcontractor Rate</mat-label>
+                    <input matInput type="text" formControlName="subcontratorRate">
                 </mat-form-field>
 
                 <mat-form-field appearance="outline">
-                    <mat-label>Advance Remark</mat-label>
-                    <input matInput type="text" formControlName="advanceRemark">
+                    <mat-label>Subcontractor Advance</mat-label>
+                    <input matInput type="text" formControlName="subContratorAdvance">
                 </mat-form-field>
                 
                 <mat-form-field appearance="outline">
-                    <mat-label>Diesel Amount</mat-label>
-                    <input matInput type="text" formControlName="dieselAmount">
+                    <mat-label>Subcontractor Diesel</mat-label>
+                    <input matInput type="text" formControlName="subContratorDiesel">
                 </mat-form-field>
-        
-                <mat-form-field appearance="outline">
-                    <mat-label>Rate</mat-label>
-                    <input matInput type="text" formControlName="rate">
-                </mat-form-field>
-
-                <mat-form-field appearance="outline">
-                    <mat-label>Shortage</mat-label>
-                    <input matInput type="text" formControlName="shortage">
-                </mat-form-field>
-
-                <mat-form-field appearance="outline">
-                    <mat-label>Shortage % Permissibile</mat-label>
-                    <input matInput type="text" formControlName="shortagePermissible">
-                </mat-form-field>
-
-                <mat-form-field appearance="outline">
-                    <mat-label>Detention</mat-label>
-                    <input matInput type="text" formControlName="detention">
-                </mat-form-field>
-
         <div>
             <button class="primary-button" mat-raised-button type="submit" [disabled]="!formFour.valid" (click)="getValue()">Submit</button>
         </div>
@@ -73,30 +60,35 @@
           <th mat-header-cell *matHeaderCellDef> LR No. </th>
           <td mat-cell *matCellDef="let element"> {{element.lrNum}} </td>
         </ng-container>
+
+        <ng-container matColumnDef="lrDate">
+          <th mat-header-cell *matHeaderCellDef> LR Date </th>
+          <td mat-cell *matCellDef="let element"> {{element.lrDate | date:'dd-MM-YYYY'}} </td>
+        </ng-container>
       
         <ng-container matColumnDef="vehicalNo">
           <th mat-header-cell *matHeaderCellDef> Vehical No </th>
           <td mat-cell *matCellDef="let element"> {{element.vehicalNo}} </td>
         </ng-container>
 
-        <ng-container matColumnDef="transportName">
-            <th mat-header-cell *matHeaderCellDef> Transport Name </th>
-            <td mat-cell *matCellDef="let element"> {{element.transportName}} </td>
+        <ng-container matColumnDef="subcontratorName">
+            <th mat-header-cell *matHeaderCellDef> Subcontractor Name </th>
+            <td mat-cell *matCellDef="let element"> {{element.subcontratorName}} </td>
           </ng-container>
 
-        <ng-container matColumnDef="advanceAmount">
-            <th mat-header-cell *matHeaderCellDef> Advance Amount </th>
-            <td mat-cell *matCellDef="let element"> {{element.advanceAmount}} </td>
+        <ng-container matColumnDef="subcontratorRate">
+            <th mat-header-cell *matHeaderCellDef> Subcontractor Rate </th>
+            <td mat-cell *matCellDef="let element"> {{element.subcontratorRate}} </td>
         </ng-container>
     
-        <ng-container matColumnDef="advanceRemark">
-            <th mat-header-cell *matHeaderCellDef> Advance Remark </th>
-            <td mat-cell *matCellDef="let element"> {{element.advanceRemark}} </td>
+        <ng-container matColumnDef="subContratorAdvance">
+            <th mat-header-cell *matHeaderCellDef> Subcontractor Advance </th>
+            <td mat-cell *matCellDef="let element"> {{element.subContratorAdvance}} </td>
           </ng-container>
 
-          <ng-container matColumnDef="dieselAmount">
-            <th mat-header-cell *matHeaderCellDef> Diesel Amount </th>
-            <td mat-cell *matCellDef="let element"> {{element.dieselAmount}} </td>
+          <ng-container matColumnDef="subContratorDiesel">
+            <th mat-header-cell *matHeaderCellDef> Subcontrator Diesel </th>
+            <td mat-cell *matCellDef="let element"> {{element.subContratorDiesel}} </td>
           </ng-container>
 
 

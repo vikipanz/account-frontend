@@ -12,15 +12,22 @@ export class PageFiveComponent implements OnInit {
   public formFive!: FormGroup;
   columns = [
     'lrNum',
-    'loadDate',
+    'lrDate',
     'vehicalNo',
     'dieselAmount',
-    'dieselLtr',
-    'remark',
-    'others',
-    'serviceBill',
+    'dieselQty',
+    'tripAdvance',
+    'tripRemark',
+    'da',
+    'daRemark',
+    'cleaning',
+    'cleaningRemark',
     'fastTag',
-    'secondRemark',
+    'reportDate',
+    'unloadDate',
+    'km',
+    'eta',
+    'delay',
     'delete'
   ]
   tableData: any;
@@ -34,16 +41,25 @@ export class PageFiveComponent implements OnInit {
   ngOnInit(): void {
     this.formFive = this.formBuilder.group({
       lrNum: new FormControl('',[Validators.required]),
-      loadDate: new FormControl('',[Validators.required]),
+      lrDate: new FormControl('',[Validators.required]),
       vehicalNo: new FormControl('',[Validators.required]),
       dieselAmount: new FormControl('',[Validators.required]),
-      dieselLtr: new FormControl('',[Validators.required]),
-      remark: new FormControl('',[Validators.required]),
-      others: new FormControl('',[Validators.required]),
-      serviceBill: new FormControl('',[Validators.required]),
+      dieselQty: new FormControl('',[Validators.required]),
+      tripAdvance:  new FormControl('',[Validators.required]),
+      tripRemark:  new FormControl('',[Validators.required]),
+      da: new FormControl('',[Validators.required]),
+      daRemark: new FormControl('',[Validators.required]),
+      cleaning: new FormControl('',[Validators.required]),
+      cleaningRemark: new FormControl('',[Validators.required]),
       fastTag: new FormControl('',[Validators.required]),
-      secondRemark: new FormControl('',[Validators.required]),
+      reportDate: new FormControl('',[Validators.required]),
+      unloadDate: new FormControl('',[Validators.required]),
+      km: new FormControl('',[Validators.required]) ,
+      eta: new FormControl('',[Validators.required]) ,
+      delay: new FormControl('',[Validators.required])
     });
+
+    
     this.apiSrv.getFormOneData().subscribe(resp=>this.tableData = resp);
     this.formFive.get('lrNum')?.valueChanges.pipe(
       startWith(''),
@@ -63,7 +79,9 @@ export class PageFiveComponent implements OnInit {
       this.apiSrv.putFormOneData(this.formFive.get('lrNum')?.value, this.formFive.getRawValue()).subscribe((resp)=>{
         this.apiSrv.getFormOneData().subscribe((resp)=>this.tableData = resp) 
       },
-      error=>console.log(error)
+    (error)=>{
+      this.apiSrv.show(error.error.error);
+    } 
     );
     this.formFive.reset();
     this.selectedSuggestion=[];
@@ -72,7 +90,10 @@ export class PageFiveComponent implements OnInit {
       this.apiSrv.postFormOneData(this.formFive.getRawValue()).subscribe(resp=>{
         this.apiSrv.getFormOneData().subscribe((resp)=>this.tableData = resp)
       },
-      error=>console.log(error.message));
+      (error)=>{
+        console.log(error);
+        this.apiSrv.show(error.error.error);
+      });
       this.formFive.reset();
       this.selectedSuggestion=[];
     }
@@ -83,15 +104,22 @@ export class PageFiveComponent implements OnInit {
     this.selectedSuggestion = this.tableData.filter((suggestion: any) => suggestion.lrNum === selectedLrNum);
     if (this.selectedSuggestion) {
       this.formFive.patchValue({
-        loadDate: this.selectedSuggestion[0]?.loadDate,
+        lrDate: this.selectedSuggestion[0]?.lrDate,
         vehicalNo: this.selectedSuggestion[0]?.vehicalNo,
         dieselAmount: this.selectedSuggestion[0]?.dieselAmount,
-        dieselLtr: this.selectedSuggestion[0]?.dieselLtr,
-        remark: this.selectedSuggestion[0]?.remark,
-        others: this.selectedSuggestion[0]?.others,
-        serviceBill: this.selectedSuggestion[0]?.serviceBill,
+        dieselQty: this.selectedSuggestion[0]?.dieselQty,
+        tripAdvance:  this.selectedSuggestion[0]?.tripAdvance,
+        tripRemark:  this.selectedSuggestion[0]?.tripRemark,
+        da: this.selectedSuggestion[0]?.da,
+        daRemark: this.selectedSuggestion[0]?.daRemark,
+        cleaning: this.selectedSuggestion[0]?.cleaning,
+        cleaningRemark: this.selectedSuggestion[0]?.cleaningRemark,
         fastTag: this.selectedSuggestion[0]?.fastTag,
-        secondRemark: this.selectedSuggestion[0]?.secondRemark,
+        reportDate: this.selectedSuggestion[0]?.reportDate,
+        unloadDate: this.selectedSuggestion[0]?.unloadDate,
+        km: this.selectedSuggestion[0]?.km,
+        eta: this.selectedSuggestion[0]?.eta,
+        delay: this.selectedSuggestion[0]?.delay
       });
       this.selectedValuePresent = true;
     }

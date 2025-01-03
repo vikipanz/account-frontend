@@ -16,7 +16,7 @@ export class SignupComponent implements OnInit {
   }
 
   exportToCSV(): void {
-    const csv = this.convertJsonToCsv(this.jsonData);
+    const csv = this.apiSrv.convertJsonToCsv(this.jsonData);
   
     const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
   
@@ -30,38 +30,4 @@ export class SignupComponent implements OnInit {
     document.body.removeChild(link);
   }
   
-  private convertJsonToCsv(jsonData: any[]): string {
-    const headers = Object.keys(jsonData[0]).filter(key => key !== '_id' && key !== '__v');
-  
-    const rows = jsonData.map(row => {
-      return headers.map(fieldName => {
-        let value = row[fieldName];
-  
-        if (!isNaN(value) && value !== '') {
-          value = parseFloat(value);
-        }
-        else if (value && !isNaN(Date.parse(value))) {
-          value = formatDate(new Date(value));
-        }
-        else {
-          value = value === null || value === undefined ? '' : value;
-        }
-  
-        return JSON.stringify(value);
-      }).join(',');
-    });
-  
-    return [headers.join(','), ...rows].join('\n');
-  }
-
 }
-  
-  function formatDate(date: any): string {
-    if (date instanceof Date) {
-      const day = ("0" + date.getDate()).slice(-2);
-      const month = ("0" + (date.getMonth() + 1)).slice(-2);
-      const year = date.getFullYear();
-      return `${day}-${month}-${year}`;
-    }
-    return '';
-  }

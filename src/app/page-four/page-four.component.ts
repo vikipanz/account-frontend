@@ -13,15 +13,12 @@ export class PageFourComponent implements OnInit {
   public formFour!: FormGroup;
   columns = [
     'lrNum',
+    'lrDate',
     'vehicalNo',
-    'transportName',
-    'advanceAmount',
-    'advanceRemark',
-    'dieselAmount',
-    'rate',
-    'shortage',
-    'shortagePermissible',
-    'detention',
+    'subcontratorName',
+    'subcontratorRate',
+    'subContratorAdvance',
+    'subContratorDiesel',
     'delete'
   ]
   tableData: any;
@@ -34,15 +31,12 @@ export class PageFourComponent implements OnInit {
   ngOnInit(): void {
     this.formFour = this.formBuilder.group({
       lrNum: new FormControl('',[Validators.required]),
+      lrDate: new FormControl('',[Validators.required]),
       vehicalNo: new FormControl('',[Validators.required]),
-      transportName: new FormControl('',[Validators.required]),
-      advanceAmount: new FormControl('',[Validators.required]),
-      advanceRemark: new FormControl('',[Validators.required]),
-      dieselAmount: new FormControl('',[Validators.required]),
-      rate: new FormControl('',[Validators.required]),
-      shortage: new FormControl('',[Validators.required]),
-      shortagePermissible: new FormControl('',[Validators.required]),
-      detention: new FormControl('',[Validators.required])
+      subcontratorName: new FormControl('', [Validators.required]),
+      subcontratorRate: new FormControl('', [Validators.required]),
+      subContratorAdvance: new FormControl('', [Validators.required]),
+      subContratorDiesel: new FormControl('',[Validators.required])
     });
     this.apiSrv.getFormOneData().subscribe(resp=>this.tableData=resp);
     this.formFour.get('lrNum')?.valueChanges.pipe(
@@ -59,12 +53,25 @@ export class PageFourComponent implements OnInit {
   }
 
   getValue(){
-    let formValue = this.formFour.getRawValue();
-    this.apiSrv.postFormOneData(formValue).subscribe(resp=>{
-      this.apiSrv.getFormOneData().subscribe(resp=>this.tableData=resp);
-    },
-    error=>console.log(error.message));
+    if(this.selectedValuePresent){
+      this.apiSrv.putFormOneData(this.formFour.get('lrNum')?.value, this.formFour.getRawValue()).subscribe((resp)=>{
+        this.apiSrv.getFormOneData().subscribe((resp)=>this.tableData = resp) 
+      },
+      error=>console.log(error)
+    );
     this.formFour.reset();
+    this.selectedSuggestion=[];
+    }
+    else{
+      this.apiSrv.postFormOneData(this.formFour.getRawValue()).subscribe(resp=>{
+        this.apiSrv.getFormOneData().subscribe((resp)=>this.tableData = resp)
+      },
+      (error)=>{
+        this.apiSrv.show(error.error.error);
+      });
+      this.formFour.reset();
+      this.selectedSuggestion=[];
+    }
   }
 
 
@@ -73,15 +80,12 @@ export class PageFourComponent implements OnInit {
     this.selectedSuggestion = this.tableData.filter((suggestion: any) => suggestion.lrNum === selectedLrNum);
     if (this.selectedSuggestion) {
       this.formFour.patchValue({
-        vehicalNo: this.selectedSuggestion[0]?.vehicalNo,
-        transportName: this.selectedSuggestion[0]?.transportName,
-        advanceAmount: this.selectedSuggestion[0]?.advanceAmount,
-        advanceRemark: this.selectedSuggestion[0]?.advanceRemark,
-        dieselAmount: this.selectedSuggestion[0]?.dieselAmount,
-        rate: this.selectedSuggestion[0]?.rate,
-        shortage: this.selectedSuggestion[0]?.shortage,
-        shortagePermissible: this.selectedSuggestion[0]?.shortagePermissible,
-        detention: this.selectedSuggestion[0]?.detention
+        lrDate:this.selectedSuggestion[0]?.lrDate,
+        vehicalNo:this.selectedSuggestion[0]?.vehicalNo,
+        subcontratorName:this.selectedSuggestion[0]?.subcontratorName,
+        subcontratorRate:this.selectedSuggestion[0]?.subcontratorRate,
+        subContratorAdvance:this.selectedSuggestion[0]?.subContratorAdvance,
+        subContratorDiesel:this.selectedSuggestion[0]?.subContratorDiesel
       });
       this.selectedValuePresent = true;
     }

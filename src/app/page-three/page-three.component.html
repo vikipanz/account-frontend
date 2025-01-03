@@ -13,41 +13,32 @@
                     </mat-option>
                 </mat-autocomplete>
             </mat-form-field>
-        
+
                 <mat-form-field appearance="outline">
-                    <mat-label>L.R Checked Date</mat-label>
-                    <input matInput [matDatepicker]="lrDate" readonly formControlName="lrCheckedDate"/>
+                    <mat-label>L.R Date</mat-label>
+                    <input matInput [matDatepicker]="lrDate" readonly formControlName="lrDate"/>
                     <mat-datepicker-toggle matSuffix [for]="lrDate"></mat-datepicker-toggle>
                     <mat-datepicker #lrDate></mat-datepicker>
                 </mat-form-field>
 
                 <mat-form-field appearance="outline">
-                    <mat-label>Reporting Date</mat-label>
-                    <input matInput [matDatepicker]="reportingDate" readonly formControlName="reportingDate"/>
-                    <mat-datepicker-toggle matSuffix [for]="reportingDate"></mat-datepicker-toggle>
-                    <mat-datepicker #reportingDate></mat-datepicker>
+                    <mat-label>Vehical No</mat-label>
+                    <input matInput type="text" formControlName="vehicalNo">
                 </mat-form-field>
 
                 <mat-form-field appearance="outline">
-                    <mat-label>Unload Date</mat-label>
-                    <input matInput [matDatepicker]="unloadDate" readonly formControlName="unloadDate"/>
-                    <mat-datepicker-toggle matSuffix [for]="unloadDate"></mat-datepicker-toggle>
-                    <mat-datepicker #unloadDate></mat-datepicker>
-                </mat-form-field>
-    
-                <mat-form-field appearance="outline">
-                    <mat-label>Unload Net Wt</mat-label>
-                    <input matInput type="text" formControlName="unloadnetWt">
+                    <mat-label>Freight</mat-label>
+                    <input matInput type="text" formControlName="freight">
                 </mat-form-field>
 
                 <mat-form-field appearance="outline">
-                    <mat-label>Shortage</mat-label>
-                    <input matInput type="text" formControlName="shortage">
+                    <mat-label>Invoice Number</mat-label>
+                    <input matInput type="text" formControlName="invoiceNumber">
                 </mat-form-field>
 
                 <mat-form-field appearance="outline">
-                    <mat-label>Shortage % Permissibile</mat-label>
-                    <input matInput type="text" formControlName="shortagePercent">
+                    <mat-label>Invoice Amount</mat-label>
+                    <input matInput type="text" formControlName="invoiceAmount">
                 </mat-form-field>
 
             <div>
@@ -65,35 +56,29 @@
           <td mat-cell *matCellDef="let element"> {{element.lrNum}} </td>
         </ng-container>
       
-        <ng-container matColumnDef="lrCheckedDate">
-          <th mat-header-cell *matHeaderCellDef> LR Checked Date </th>
-          <td mat-cell *matCellDef="let element"> {{element.lrCheckedDate | date:'dd-MM-YYYY'}} </td>
+        <ng-container matColumnDef="lrDate">
+          <th mat-header-cell *matHeaderCellDef> LR Date </th>
+          <td mat-cell *matCellDef="let element"> {{element.lrDate | date:'dd-MM-YYYY'}} </td>
         </ng-container>
 
-        <ng-container matColumnDef="reportingDate">
-            <th mat-header-cell *matHeaderCellDef> Reporting Date </th>
-            <td mat-cell *matCellDef="let element"> {{element.reportingDate | date:'dd-MM-YYYY'}} </td>
+        <ng-container matColumnDef="vehicalNo">
+            <th mat-header-cell *matHeaderCellDef> Vehical No. </th>
+            <td mat-cell *matCellDef="let element"> {{element.vehicalNo }} </td>
           </ng-container>
 
-        <ng-container matColumnDef="unloadDate">
-            <th mat-header-cell *matHeaderCellDef> Unload Date </th>
-            <td mat-cell *matCellDef="let element"> {{element.unloadDate | date:'dd-MM-YYYY'}} </td>
+        <ng-container matColumnDef="freight">
+            <th mat-header-cell *matHeaderCellDef> Freight </th>
+            <td mat-cell *matCellDef="let element"> {{element.freight }} </td>
         </ng-container>
     
-        <ng-container matColumnDef="unloadNetWt">
-            <th mat-header-cell *matHeaderCellDef> Unload Net Wt </th>
-            <td mat-cell *matCellDef="let element"> {{element.unloadnetWt}} </td>
+        <ng-container matColumnDef="invoiceNumber">
+            <th mat-header-cell *matHeaderCellDef> Invoice Number </th>
+            <td mat-cell *matCellDef="let element"> {{element.invoiceNumber}} </td>
           </ng-container>
 
-          <ng-container matColumnDef="shortage">
-            <th mat-header-cell *matHeaderCellDef> Shortage </th>
-            <td mat-cell *matCellDef="let element"> {{element.shortage}} </td>
-          </ng-container>
-
-
-          <ng-container matColumnDef="shortagePercent">
-            <th mat-header-cell *matHeaderCellDef> Shortage Percent </th>
-            <td mat-cell *matCellDef="let element"> {{element.shortagePercent}} </td>
+          <ng-container matColumnDef="invoiceAmount">
+            <th mat-header-cell *matHeaderCellDef> Invoice Amount </th>
+            <td mat-cell *matCellDef="let element"> {{element.invoiceAmount}} </td>
           </ng-container>
 
         <ng-container matColumnDef="delete">

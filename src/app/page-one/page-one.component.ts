@@ -13,7 +13,7 @@ export class PageOneComponent implements OnInit {
 
   public formOne!: FormGroup;
   public tableData : any;
-  columns = ['lrNum', 'lrDate','party',  'vehicalNo',  'from',  'to', 'delete'];
+  columns = ['lrNum', 'lrDate','ownBy',  'vehicalNo', 'loadDate', 'consignor', 'consignee', 'account', 'product', 'qtyLoad' , 'from',  'to', 'delete'];
   dropDown = [
     {value: 'own', viewValue: 'Own'},
     {value: 'other', viewValue: 'Other'},
@@ -28,11 +28,16 @@ export class PageOneComponent implements OnInit {
     this.formOne = this.formBuilder.group({
       lrNum: new FormControl('',[Validators.required]),
       lrDate: new FormControl('',[Validators.required]),
-      party: new FormControl('',[Validators.required]),
+      ownBy:  new FormControl('',[Validators.required]),
       vehicalNo: new FormControl('',[Validators.required]),
+      loadDate: new FormControl('',[Validators.required]),
+      consignor: new FormControl('',[Validators.required]),
+      consignee: new FormControl('',[Validators.required]),
+      account: new FormControl('',[Validators.required]),
+      product: new FormControl('',[Validators.required]),
+      qtyLoad: new FormControl('',[Validators.required]),
       from: new FormControl('',[Validators.required]),
       to: new FormControl('',[Validators.required]),
-      ownBy:  new FormControl('',[Validators.required])
     });
     this.apiSrv.getFormOneData().pipe().subscribe((resp)=> this.tableData = resp);
     this.formOne.get('lrNum')?.valueChanges.pipe(
@@ -74,11 +79,16 @@ export class PageOneComponent implements OnInit {
     if (this.selectedSuggestion) {
       this.formOne.patchValue({
         lrDate: this.selectedSuggestion[0]?.lrDate,
-        party: this.selectedSuggestion[0]?.party,
+        ownBy:  this.selectedSuggestion[0]?.ownBy,
         vehicalNo: this.selectedSuggestion[0]?.vehicalNo,
+        loadDate: this.selectedSuggestion[0]?.loadDate,
+        consignor: this.selectedSuggestion[0]?.consignor,
+        consignee: this.selectedSuggestion[0]?.consignee,
+        account: this.selectedSuggestion[0]?.account,
+        product: this.selectedSuggestion[0]?.product,
+        qtyLoad: this.selectedSuggestion[0]?.qtyLoad,
         from: this.selectedSuggestion[0]?.from,
-        to: this.selectedSuggestion[0]?.to,
-        ownBy: this.selectedSuggestion[0]?.ownBy
+        to: this.selectedSuggestion[0]?.to
       });
       this.selectedValuePresent = true;
     }
@@ -99,6 +109,21 @@ export class PageOneComponent implements OnInit {
     this.apiSrv.deleteRecord(record.lrNum).subscribe(resp=>{
       this.apiSrv.getFormOneData().subscribe((resp)=>this.tableData = resp) 
     });
+  }
+
+  exportToCSV(){
+    const csv = this.apiSrv.convertJsonToCsv(this.tableData);
+  
+    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+  
+    const link = document.createElement('a');
+    const url = URL.createObjectURL(blob);
+    link.setAttribute('href', url);
+    link.setAttribute('download', 'formone.csv');
+  
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   }
 
 }
